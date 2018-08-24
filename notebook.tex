@@ -1,0 +1,706 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{????}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{爬虫代码实现笔记}\label{ux722cux866bux4ee3ux7801ux5b9eux73b0ux7b14ux8bb0}
+
+    \subsection{一、首先确认requests包与BeautifulSoup4包已安装}\label{ux4e00ux9996ux5148ux786eux8ba4requestsux5305ux4e0ebeautifulsoup4ux5305ux5df2ux5b89ux88c5}
+
+没有的话： pip install requests pip install BeautifulSoup4 来完成安装
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}171}]:} \PY{k+kn}{import} \PY{n+nn}{requests}
+          \PY{k+kn}{from} \PY{n+nn}{bs4} \PY{k}{import} \PY{n}{BeautifulSoup}
+          \PY{n}{res}\PY{o}{=}\PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{http://news.sina.com.cn/china/}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}用requests的get方法获取指定url的网页，并将其封装为一个Response对象}
+          \PY{n}{res}\PY{o}{.}\PY{n}{encoding}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{utf\PYZhy{}8}\PY{l+s+s2}{\PYZdq{}}
+          \PY{c+c1}{\PYZsh{}print(res.text) \PYZsh{}获取响应的html内容}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{res}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'requests.models.Response'>
+
+    \end{Verbatim}
+
+    \subsection{二、用BeautifulSoup解析网页元素}\label{ux4e8cux7528beautifulsoupux89e3ux6790ux7f51ux9875ux5143ux7d20}
+
+BeautifulSoup把整个html内容视为一个html文档树，把文档中的每个html元素视为一个节点，这样就能访问到你想访问到的指定元素了
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}172}]:} \PY{n}{html\PYZus{}sample}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}}
+          \PY{l+s+s1}{\PYZlt{}html\PYZgt{} }\PY{l+s+se}{\PYZbs{}}
+          \PY{l+s+s1}{  \PYZlt{}body\PYZgt{} }\PY{l+s+se}{\PYZbs{}}
+          \PY{l+s+s1}{    \PYZlt{}h1 id=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{title}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZgt{}hello,world!\PYZlt{}/h1\PYZgt{} }\PY{l+s+se}{\PYZbs{}}
+          \PY{l+s+s1}{    \PYZlt{}a href=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsh{}}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{ class=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{link}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZgt{}this is link1\PYZlt{}/a\PYZgt{} }\PY{l+s+se}{\PYZbs{}}
+          \PY{l+s+s1}{    \PYZlt{}a href=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZsh{} link2}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{ class=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{link}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZgt{}this is link2\PYZlt{}/a\PYZgt{} }\PY{l+s+se}{\PYZbs{}}
+          \PY{l+s+s1}{  \PYZlt{}/body\PYZgt{} }\PY{l+s+se}{\PYZbs{}}
+          \PY{l+s+s1}{ \PYZlt{}/html\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}173}]:} \PY{n}{soup}\PY{o}{=}\PY{n}{BeautifulSoup}\PY{p}{(}\PY{n}{html\PYZus{}sample}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{html.parser}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}将html\PYZus{}sample解析为一个BeautifulSoup对象，并指定“html.parser”为BeautifulSoup的解析器}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}174}]:} \PY{c+c1}{\PYZsh{} print(soup.text)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{soup}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'bs4.BeautifulSoup'>
+
+    \end{Verbatim}
+
+    soup.text会去掉html中的元素标签，直接返回元素标签内文本；但若要获取特定元素标签的相关内容，则需要BeautifulSoup封装对象soup的select方法；
+
+    \subsubsection{使用select找出含有h1与a标签的元素：}\label{ux4f7fux7528selectux627eux51faux542bux6709h1ux4e0eaux6807ux7b7eux7684ux5143ux7d20}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}175}]:} \PY{n}{header}\PY{o}{=}\PY{n}{soup}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{alink}\PY{o}{=}\PY{n}{soup}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}176}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{header}\PY{p}{)} 
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{alink}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[<h1 id="title">hello,world!</h1>]
+[<a class="link" href="\#">this is link1</a>, <a class="link" href="\# link2">this is link2</a>]
+
+    \end{Verbatim}
+
+    故可见，select方法输出为list类型数据，要获得具体的值，则可以使用索引;而要获得指定元素的文本值，则加上.text属性
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}177}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{header}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{header}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{text}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<h1 id="title">hello,world!</h1>
+hello,world!
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}178}]:} \PY{k}{for} \PY{n}{link} \PY{o+ow}{in} \PY{n}{alink}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{}print(link)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{link}\PY{o}{.}\PY{n}{text}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+this is link1
+this is link2
+
+    \end{Verbatim}
+
+    \subsubsection{取得指定属性的元素}\label{ux53d6ux5f97ux6307ux5b9aux5c5eux6027ux7684ux5143ux7d20}
+
+    使用selectr找出所有id为title的元素（id前面加\#）
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}179}]:} \PY{n}{alink}\PY{o}{=}\PY{n}{soup}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{alink}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[<h1 id="title">hello,world!</h1>]
+
+    \end{Verbatim}
+
+    使用select找出所有class为link的元素（class前面加.）
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}180}]:} \PY{k}{for} \PY{n}{link} \PY{o+ow}{in} \PY{n}{soup}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.link}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{link}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<a class="link" href="\#">this is link1</a>
+<a class="link" href="\# link2">this is link2</a>
+
+    \end{Verbatim}
+
+    \subsubsection{获取指定元素的指定属性值}\label{ux83b7ux53d6ux6307ux5b9aux5143ux7d20ux7684ux6307ux5b9aux5c5eux6027ux503c}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}181}]:} \PY{k}{for} \PY{n}{link} \PY{o+ow}{in} \PY{n}{soup}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.link}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{link}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{href}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\#
+\# link2
+
+    \end{Verbatim}
+
+    获取的元素，其属性以键值对形态的字典类型数据表示:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}182}]:} \PY{n}{a}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZlt{}a href=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{www.baidu.com}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{ qoo=123 abc=}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{456}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZgt{}I am a link\PYZlt{}/a\PYZgt{}}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{soup2}\PY{o}{=}\PY{n}{BeautifulSoup}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{html.parser}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{link}\PY{o}{=}\PY{n}{soup2}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{link}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{href}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{link}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{qoo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{link}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{abc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+www.baidu.com
+123
+456
+
+    \end{Verbatim}
+
+    \subsection{三、抓取新浪的新闻列表信息}\label{ux4e09ux6293ux53d6ux65b0ux6d6aux7684ux65b0ux95fbux5217ux8868ux4fe1ux606f}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    抓取新闻列表首先要分析每条新闻列表在网页中的位置，分析每条列表的网页上的特性是什么，这样才可以针对性地抓取；具体方法:
+1、打开chrome的开发者工具（右击页面，在弹出菜单中点击``检查''）后，载入新闻列表页，具体步骤如下：
+2、点击左上解``检查''工具，并用鼠标点击网页中每一项新闻标题上，观察其元素特征；
+经过检查，发现每一新闻标题都是用一个样式为news-item的div包住的，所以就可以以此为依据，来定位并抓取每一个新闻标题及相关信息
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}183}]:} \PY{n}{res}\PY{o}{=}\PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{http://news.sina.com.cn/china/}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}用requests的get方法获取指定url的网页，并将其封装为一个Response对象}
+          \PY{n}{res}\PY{o}{.}\PY{n}{encoding}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{utf\PYZhy{}8}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{soup}\PY{o}{=}\PY{n}{BeautifulSoup}\PY{p}{(}\PY{n}{res}\PY{o}{.}\PY{n}{text}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{html.parser}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}print(soup.text)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}184}]:} \PY{k}{for} \PY{n}{news} \PY{o+ow}{in} \PY{n}{soup}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.news\PYZhy{}item}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{}print(type(news))}
+              \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{news}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{:}
+                  \PY{n}{time}\PY{o}{=}\PY{n}{news}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{text} \PY{c+c1}{\PYZsh{}获取新闻的发布时间}
+                  \PY{n}{h2}\PY{o}{=}\PY{n}{news}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{h2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{text}  \PY{c+c1}{\PYZsh{}获取新闻的标题}
+                  \PY{n}{a}\PY{o}{=}\PY{n}{news}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{href}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}  \PY{c+c1}{\PYZsh{}获取新闻的链接}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{n}{time}\PY{p}{,}\PY{n}{h2}\PY{p}{,}\PY{n}{a}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+7月14日 07:28 中国电信巨头在美频当“靶子”后 又被一国下狠手 http://news.sina.com.cn/o/2018-07-14/doc-ihfhfwmv1378608.shtml
+7月14日 04:38 中央环保督察杀个“回马枪” 约谈问责超过7000人 http://news.sina.com.cn/c/nd/2018-07-14/doc-ihfhfwmv1093330.shtml
+7月14日 04:32 人民日报望海楼：四个“坚定不移”引领两岸关系 http://news.sina.com.cn/o/2018-07-14/doc-ihfhfwmv1228059.shtml
+7月14日 04:08 台军军官出来兼职经营夹娃娃机 台湾还有未来吗？ http://news.sina.com.cn/c/2018-07-14/doc-ihfhfwmv1093076.shtml
+7月14日 03:54 人民日报：事情发展到今天 责任全在美方 http://news.sina.com.cn/c/2018-07-14/doc-ihfhfwmv1020416.shtml
+7月14日 03:15 世贸组织对中国第七次贸易政策审议结束 http://news.sina.com.cn/w/2018-07-14/doc-ihfhfwmv0952538.shtml
+7月14日 02:54 台湾台东县发生4.7级地震 震源深度4千米 http://news.sina.com.cn/c/2018-07-14/doc-ihfhfwmv0911032.shtml
+7月14日 02:20 四川爆燃事故救援结束 工厂至今未通过消防验收 http://news.sina.com.cn/c/2018-07-14/doc-ihfhfwmv0845679.shtml
+7月14日 01:57 央视解读商务部声明：到底是谁“不公平”？ http://news.sina.com.cn/c/2018-07-14/doc-ihfhfwmv0769612.shtml
+7月14日 01:29 民航局:还剩6家外航未改涉台错误标注 将敦促整改 http://news.sina.com.cn/c/2018-07-14/doc-ihfhfwmv0716134.shtml
+7月14日 01:08 甘肃洪灾致15人死4失踪 黄河兰州段防汛形势严峻 http://news.sina.com.cn/o/2018-07-14/doc-ihfhfwmv0658752.shtml
+7月14日 01:00 人民日报:“反契约陷阱”给世界经济带来失序风险 http://news.sina.com.cn/o/2018-07-14/doc-ihfhfwmv0619958.shtml
+7月14日 00:54 新京报谈国航机组“吸烟门”:航空安全容不得惊魂 http://news.sina.com.cn/c/2018-07-14/doc-ihfhfwmv0609057.shtml
+7月14日 00:40 央行整治拒收现金 对地方政府说这样一句话 http://news.sina.com.cn/o/2018-07-14/doc-ihfhfwmv0583519.shtml
+7月14日 00:16 中美贸易战第一周：中方回应以逸待劳 抓痛点反击 http://news.sina.com.cn/c/nd/2018-07-14/doc-ihfhfwmv0502351.shtml
+7月14日 00:13 台媒称大陆代购爆买“洋中药” 日韩药企觅得商机 http://news.sina.com.cn/c/2018-07-14/doc-ihfhfwmv0544719.shtml
+7月14日 00:13 BBC称欧洲宇航员来华训练感受中国热情：像大家庭 http://news.sina.com.cn/c/2018-07-14/doc-ihfhfwmv0544819.shtml
+7月14日 00:13 美媒称中国“山寨”国外建筑:国内也能观世界名胜 http://news.sina.com.cn/c/2018-07-14/doc-ihfhfwmv0544797.shtml
+7月14日 00:13 以往卖到中国大陆的大量垃圾被拒 美回收厂这么做 http://news.sina.com.cn/w/2018-07-14/doc-ihfhfwmv0545109.shtml
+7月14日 00:09 长安剑：面对校园性骚扰 司法从未隐身永不隐身 http://news.sina.com.cn/c/2018-07-14/doc-ihfhfwmv0464466.shtml
+7月13日 23:52 董事张辉接受调查 五粮液面临尴尬处境 http://news.sina.com.cn/o/2018-07-13/doc-ihfhfwmv0412845.shtml
+7月13日 23:03 资深机长：抽烟不是新闻 误关空调让同行笑掉大牙 http://news.sina.com.cn/c/nd/2018-07-13/doc-ihfhfwmv0249311.shtml
+4月11日 06:39 蔡奇陈吉宁在内蒙古的两天两夜 都干了啥？ http://news.sina.com.cn/c/nd/2018-04-11/doc-ifyteqtq7750224.shtml
+4月11日 06:38 北京16区与内蒙古这些旗县结对奔小康 http://news.sina.com.cn/c/nd/2018-04-11/doc-ifyuwqez8641035.shtml
+4月11日 06:24 经济学家：中国城市发展面临的问题是包容性变差 http://news.sina.com.cn/o/2018-04-11/doc-ifyteqtq7737674.shtml
+4月11日 06:03 日本前首相福田康夫：中国越开放 世界越受益 http://news.sina.com.cn/c/nd/2018-04-11/doc-ifyteqtq7719790.shtml
+4月11日 05:02 中国科协:我国科技论文与专利绝对数量居世界前列 http://news.sina.com.cn/c/2018-04-11/doc-ifyuwqez8568721.shtml
+4月11日 05:02 张又侠在纪念张廷发同志诞辰100周年座谈会上讲话 http://news.sina.com.cn/c/2018-04-11/doc-ifyteqtq7676971.shtml
+4月11日 02:49 专家：美国最近猛打台湾牌 最终遭殃是台湾 http://news.sina.com.cn/o/2018-04-11/doc-ifyteqtq7611130.shtml
+4月11日 02:39 北京市住建委：共有产权房不得拒绝组合贷 http://news.sina.com.cn/c/nd/2018-04-11/doc-ifyuwqez8500829.shtml
+4月11日 02:39 北京多区行政案件或集中在通州审理 至少增800件 http://news.sina.com.cn/c/nd/2018-04-11/doc-ifyteqtq7609068.shtml
+4月11日 02:24 今日头条旗下内涵段子被关停 抖音评论也删除了？ http://news.sina.com.cn/c/nd/2018-04-11/doc-ifyteqtq7605687.shtml
+4月11日 01:15 英拍卖行回应中国文物局：符合英国法律 17点开拍 http://news.sina.com.cn/c/nd/2018-04-11/doc-ifyzeyqa2352898.shtml
+4月11日 00:45 一文梳理：博鳌传出四大重磅信号 权威解读来了 http://news.sina.com.cn/c/nd/2018-04-11/doc-ifyteqtq7580447.shtml
+4月11日 00:45 中国向老挝移交援建的轻武器射击比赛场项目 http://news.sina.com.cn/c/nd/2018-04-11/doc-ifyteqtq7580448.shtml
+4月11日 00:37 新京报：“城管与公安打起来” 依法处理不能护短 http://news.sina.com.cn/c/nd/2018-04-11/doc-ifyteqtq7578964.shtml
+4月11日 00:29 日媒:中国网民对日企态度改观 对日产品好感上升 http://news.sina.com.cn/c/2018-04-11/doc-ifyuwqez8468365.shtml
+4月11日 00:29 汽车工业协会：关税降是机遇 有底气放宽股比限制 http://news.sina.com.cn/c/nd/2018-04-11/doc-ifyzeyqa2179935.shtml
+4月11日 00:29 深圳特区首任市委书记逝世 他被称中国“孙悟空” http://news.sina.com.cn/c/nd/2018-04-11/doc-ifyteqtq7576205.shtml
+4月11日 00:23 新华社评中美贸易摩擦:紧攥双拳何以分享中国红利 http://news.sina.com.cn/c/nd/2018-04-11/doc-ifyteqtq7574682.shtml
+4月11日 00:04 蔡英文急否“特朗普是棋子” 怕美爸爸打屁股吗？ http://news.sina.com.cn/c/2018-04-11/doc-ifyteqtq7569608.shtml
+4月10日 23:52 王毅：所有拥抱全球化的国家都会成功 http://news.sina.com.cn/o/2018-04-10/doc-ifyteqtq7567099.shtml
+4月10日 23:35 疑似非法流失文物今在英拍卖:3500年前西周青铜器 http://news.sina.com.cn/o/2018-04-10/doc-ifyuwqez8455151.shtml
+4月10日 23:20 海南首家中外合资医院揭牌 奥地利总统出席 http://news.sina.com.cn/o/2018-04-10/doc-ifyzeyqa1991554.shtml
+4月10日 01:54 广深港高铁车轮偏离路轨后 港铁:9月底通车不会变 http://news.sina.com.cn/c/2018-04-10/doc-ifyuwqez7803353.shtml
+4月10日 00:39 台籍诈骗犯大陆受审 台民众:谢大陆“清理门户” http://news.sina.com.cn/c/2018-04-10/doc-ifyuwqez7783860.shtml
+4月9日 22:46 香港路政署回应港珠澳大桥人工岛传闻：质量过关 http://news.sina.com.cn/o/2018-04-09/doc-ifyteqtq6857125.shtml
+4月7日 05:56 香港中联办主任：反对国家制度就是对港人的犯罪 http://news.sina.com.cn/c/gat/2018-04-07/doc-ifyvtmxc2926792.shtml
+4月5日 21:19 台湾桃园一处民宅失火致致4死 疑因电线插座起火 http://news.sina.com.cn/o/2018-04-05/doc-ifyteqtq4566966.shtml
+4月5日 14:41 台湾两空服员感染麻疹仍出勤 虎航：绝无知情不报 http://news.sina.com.cn/o/2018-04-05/doc-ifyuwqez5318233.shtml
+4月4日 14:16 广深港高铁香港段昨试运列车尾部出轨 暂停试车 http://news.sina.com.cn/c/gat/2018-04-04/doc-ifysuuya4635801.shtml
+4月4日 13:43 菲遣送78名台诈骗嫌犯到大陆 台“外交部”又急了 http://news.sina.com.cn/c/2018-04-04/doc-ifyswxnq2532292.shtml
+4月4日 11:49 蒋介石陵寝遭泼漆后最快6月底开放 游客锐减一半 http://news.sina.com.cn/o/2018-04-04/doc-ifyteqtq3784484.shtml
+4月4日 11:37 2018年台湾县市长选举：国民党5月或完成整体布局 http://news.sina.com.cn/o/2018-04-04/doc-ifyteqtq3776496.shtml
+4月4日 10:12 民进党有意与柯文哲选举上合作？吕秀莲:逻辑奇怪 http://news.sina.com.cn/c/gat/2018-04-04/doc-ifyteqtq3712674.shtml
+4月4日 09:16 港媒：想“台独”李扁都做不到 赖清德更不行 http://news.sina.com.cn/c/2018-04-04/doc-ifyswxnq2357651.shtml
+4月4日 08:55 赖清德用闽南语叫嚣“台独” 港媒：加速大陆武统 http://news.sina.com.cn/c/gat/2018-04-04/doc-ifysuuya3217703.shtml
+4月3日 15:11 蔡英文怼扁“保外就医”不是好事？台媒：看傻眼 http://news.sina.com.cn/o/2018-04-03/doc-ifyteqtq3257689.shtml
+4月3日 14:40 “九二共识”名词创造者:越搞“台独”越自寻死路 http://news.sina.com.cn/c/2018-04-03/doc-ifyteqtq3236377.shtml
+4月3日 14:34 蒋介石在台棺柩遭泼漆案侦结 涉案10人被提起公诉 http://news.sina.com.cn/o/2018-04-03/doc-ifyswxnq1922193.shtml
+4月3日 11:35 “海峡号”调整4月航班 每周1平潭往返台北改台中 http://news.sina.com.cn/o/2018-04-03/doc-ifyteqtq3128723.shtml
+4月3日 11:26 国民党“立委”盼两岸推“大中华货币”:或得诺奖 http://news.sina.com.cn/c/gat/2018-04-03/doc-ifyteqtq3122765.shtml
+4月3日 10:58 45\%民众支持民进党选县市长?国民党:民调还是文宣 http://news.sina.com.cn/c/2018-04-03/doc-ifyswxnq1790275.shtml
+4月3日 10:52 台媒：陈菊确定接任“总统府秘书长” 将发人事令 http://news.sina.com.cn/c/2018-04-03/doc-ifyswxnq1786289.shtml
+4月12日 05:17 不吸烟的中国女性肺癌高发 罪魁祸首:二手烟+油烟 http://news.sina.com.cn/c/zs/2018-04-12/doc-ifyzeyqa8019937.shtml
+4月12日 01:56 新京报：美国能否“逃离”民粹主义？ http://news.sina.com.cn/c/zs/2018-04-12/doc-ifyteqtq8552702.shtml
+4月12日 01:53 新京报谈“北大口红”：没“北大”只有“想红” http://news.sina.com.cn/c/zs/2018-04-12/doc-ifyuwqez9441251.shtml
+4月12日 01:08 新京报:艺人炒作与未成年女友婚恋 这是毒鸡汤 http://news.sina.com.cn/c/zs/2018-04-12/doc-ifyteqtq8515587.shtml
+4月12日 01:08 新京报：积分落户启动 入籍北京又打开一扇窗 http://news.sina.com.cn/c/zs/2018-04-12/doc-ifyuwqez9405665.shtml
+4月12日 01:08 新京报：BBC纪录片陷造假门 摆拍和造假是两码事 http://news.sina.com.cn/c/zs/2018-04-12/doc-ifyteqtq8515551.shtml
+4月12日 01:08 新京报谈抗癌药零关税：一项暖心的惠民之举 http://news.sina.com.cn/c/zs/2018-04-12/doc-ifyteqtq8515518.shtml
+4月11日 23:35 人民日报中央厨房:让8岁学生“认罪” 事情大在哪 http://news.sina.com.cn/c/zs/2018-04-11/doc-ifyteqtq8426585.shtml
+4月4日 03:41 湖南浏阳市委书记党报撰文:简单粗暴也是懒政怠政 http://news.sina.com.cn/c/2018-04-04/doc-ifyswxnq2269185.shtml
+4月3日 17:45 省纪委书记到巡视组长家中家访 纪检监察有新动作 http://news.sina.com.cn/c/zs/2018-04-03/doc-ifysuuya1276990.shtml
+4月3日 17:35 陈希除中央书记处书记和中组部长外 再有兼职 http://news.sina.com.cn/c/zs/2018-04-03/doc-ifysuuya1236104.shtml
+4月3日 16:03 2017年哪地抢到了人？ 深穗杭常住人口净流入最多 http://news.sina.com.cn/c/zs/2018-04-03/doc-ifyteqtq3293437.shtml
+4月3日 12:07 新京报评景区儿童票收取标准：不妨废身高立年龄 http://news.sina.com.cn/c/zs/2018-04-03/doc-ifyswxnq1838979.shtml
+4月3日 10:40 媒体谈抖音:速食套路化让用户陷入过度娱乐泥沼 http://news.sina.com.cn/c/zs/2018-04-03/doc-ifyteqtq3082257.shtml
+4月3日 09:37 新京报刊文谈“狱中猎艳”案:制度落实上出现问题 http://news.sina.com.cn/c/zs/2018-04-03/doc-ifyteqtq3009654.shtml
+4月3日 07:51 党报评厅官为“续官命”被骗4000万:进步勿靠捷径 http://news.sina.com.cn/c/zs/2018-04-03/doc-ifyswxnq1618368.shtml
+4月3日 06:03 70市网约车细则擅设行政处罚 某平台去年被罚5亿 http://news.sina.com.cn/c/2018-04-03/doc-ifyteqtq2886150.shtml
+4月3日 05:51 中青报谈研究生自杀：板子不能只打任何一方 http://news.sina.com.cn/o/2018-04-03/doc-ifyteqtq2882851.shtml
+4月3日 03:26 媒体评甘肃扶贫路刷涂料整改：不只是作风问题 http://news.sina.com.cn/c/nd/2018-04-03/doc-ifyswxnq1549472.shtml
+4月3日 01:57 新京报：建设西湖大学 追求的不是新增一所大学 http://news.sina.com.cn/c/nd/2018-04-03/doc-ifyswxnq1513476.shtml
+4月3日 17:04 18名干部年终总结查重不过关被追责 有人只改数字 http://news.sina.com.cn/c/sd/2018-04-03/doc-ifysuuya1064569.shtml
+3月27日 17:23 国歌立法后唱不好就违法？提案委员否认：要敬畏 http://news.sina.com.cn/c/sd/2018-03-27/doc-ifysqfnh4718177.shtml
+3月7日 10:35 这师所有连队WIFI全覆盖 军报：正视官兵网络需求 http://news.sina.com.cn/o/2018-03-07/doc-ifyrztfz9839974.shtml
+3月4日 11:40 琼州海峡大雾滞留数万旅客 要建跨海大桥或隧道？ http://news.sina.com.cn/c/sd/2018-03-04/doc-ifyrztfz7596199.shtml
+3月1日 17:08 揭秘神秘富豪叶简明：炒房起家 去年收购俄油股份 http://news.sina.com.cn/s/sd/2018-03-01/doc-ifyrztfz6054508.shtml
+2月25日 13:12 陕北千亿矿权案再起波澜：民企称官方拒不履约 http://news.sina.com.cn/o/2018-02-25/doc-ifyrvaxf0353021.shtml
+2月23日 08:48 北京的无雪之冬 早在他的计算之中 http://news.sina.com.cn/s/sd/2018-02-23/doc-ifyrvspi0934516.shtml
+2月23日 03:17 雾锁海峡的海口:交警过年不放假 每200米设志愿点 http://news.sina.com.cn/s/2018-02-23/doc-ifyrvaxe8992628.shtml
+2月5日 17:49 陕西千亿矿权纠纷:“黑金”争夺战背后的权力寻租 http://news.sina.com.cn/o/2018-02-05/doc-ifyreuzn3274822.shtml
+1月31日 13:14 烟草提税带来控烟红利2年吃空：去年销量止跌反升 http://news.sina.com.cn/c/sd/2018-01-31/doc-ifyrcsrw0579916.shtml
+1月29日 05:08 孩子先会打游戏再会系鞋带 如何智斗他们手机瘾？ http://news.sina.com.cn/o/2018-01-29/doc-ifyqyesy3391624.shtml
+1月27日 12:25 稽查人员装哑巴侦查假烟作坊 头目曾施舍其食物 http://news.sina.com.cn/c/sd/2018-01-27/doc-ifyqyesy2625298.shtml
+1月27日 11:38 儿童邪典片流入中国毒害儿童 邪典文化到底是什么 http://news.sina.com.cn/o/2018-01-27/doc-ifyqyqni3704922.shtml
+1月26日 07:50 聚焦临终关怀：没有经济收益 医院普遍缺乏动力 http://news.sina.com.cn/c/sd/2018-01-26/doc-ifyqwiqk8352258.shtml
+1月25日 15:03 山东原副省长季缃琦跌落“银座”:被举报侵吞国资 http://news.sina.com.cn/c/sd/2018-01-25/doc-ifyqyuhy6343274.shtml
+1月25日 10:10 11省市违规围填海项目或被拆 有地方代企业缴罚款 http://news.sina.com.cn/c/sd/2018-01-25/doc-ifyqyesy1225724.shtml
+1月25日 07:42 一共几个猴？武汉大学长江学者“造假”纷争背后 http://news.sina.com.cn/c/sd/2018-01-25/doc-ifyqyuhy6201774.shtml
+1月23日 07:45 儿童邪典视频如何通过网站审核:或因考核压力惹祸 http://news.sina.com.cn/c/sd/2018-01-23/doc-ifyqwiqi5646294.shtml
+1月23日 03:03 在线教育打开你知识空间:1.44亿用户 1941亿市场 http://news.sina.com.cn/c/2018-01-23/doc-ifyquixe6490193.shtml
+1月22日 08:20 最穷上市公司未交60元年费 官网域名被人抢注转卖 http://news.sina.com.cn/c/sd/2018-01-22/doc-ifyquptv8499452.shtml
+
+    \end{Verbatim}
+
+    \subsection{四、取得新闻正文的相关内容}\label{ux56dbux53d6ux5f97ux65b0ux95fbux6b63ux6587ux7684ux76f8ux5173ux5185ux5bb9}
+
+    在新闻正文页中要获取正文标题、正文内容、时间、来源、评论等信息，那么首先还是要用到开发者工具；
+打开新闻正文页后，用开发者工具检查请求的正文页URL:
+然后将查到的新闻正文URL获取正文响应：
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}185}]:} \PY{n}{res}\PY{o}{=}\PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http://news.sina.com.cn/c/nd/2018\PYZhy{}07\PYZhy{}13/doc\PYZhy{}ihfhfwmu3378104.shtml}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}res=requests.get(\PYZsq{}http://news.sina.com.cn/o/2018\PYZhy{}07\PYZhy{}14/doc\PYZhy{}ihfhfwmv0619958.shtml\PYZsq{})}
+          \PY{n}{res}\PY{o}{.}\PY{n}{encoding}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}
+          \PY{n}{soup}\PY{o}{=}\PY{n}{BeautifulSoup}\PY{p}{(}\PY{n}{res}\PY{o}{.}\PY{n}{text}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{html.parser}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}print(soup.text)}
+\end{Verbatim}
+
+
+    用开发者工具，检查标题、日期、来源所在标签： 
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}186}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{soup}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.main\PYZhy{}title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{text}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+北京市长陈吉宁会见美国特斯拉公司董事长马斯克
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}187}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{soup}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.date\PYZhy{}source .date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{text}\PY{p}{)} \PY{c+c1}{\PYZsh{}从.data\PYZhy{}source指定元素开始，逐级取到.date指定的元素}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2018年07月13日 06:34
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}188}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{soup}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.date\PYZhy{}source a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{text}\PY{p}{)} \PY{c+c1}{\PYZsh{}从.data\PYZhy{}source指定元素开始，逐级取到a元素}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+新浪新闻综合
+
+    \end{Verbatim}
+
+    特别说明：因为源视频是2016年所录的，其中各种内容对应的元素标签和位置已发生变化，故获取的方式也发生了变化；所以，要针对不断的变化，代码上也要做出相应的变化；不过，为了全面了解BeautifulSoup4，这里把原来的时间与来源标签情况与获取方式说下：
+对于原来的网页为何要这样处理稍做说明：
+1）取得时间时：因为原来的时间和来源，都在同一个大的span里，而这大的span又嵌套了二层下一级span，所以无法直接原来的方式直接用text属性分别取得时间和来源；但可以用contents属性来分别获取，因其返回的是一个内容列表，故要用{[}{]}索引指定内容；而strip()方法是去除文本里的特殊字符，这里是去掉\t\t两个特殊转义字符<br>
+2）取得来源时：soup.select中的'.time-source span
+a'是逐级取元素的意思，即：.time-source所指的元素的子元素span里的子元素a
+
+    \subsection{五、时间字符串转换}\label{ux4e94ux65f6ux95f4ux5b57ux7b26ux4e32ux8f6cux6362}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}189}]:} \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{datetime}
+          \PY{n}{dtStr}\PY{o}{=}\PY{n}{soup}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.date\PYZhy{}source .date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{text}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{dtStr}\PY{p}{)}
+          \PY{n}{dt}\PY{o}{=}\PY{n}{datetime}\PY{o}{.}\PY{n}{strptime}\PY{p}{(}\PY{n}{dtStr}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y年}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m月}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{日 }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{H:}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}将时间形式的字符串转为日期型}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{dt}\PY{o}{.}\PY{n}{strftime}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y\PYZhy{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m\PYZhy{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{H:}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}将日期型数据格式化为字符型}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2018年07月13日 06:34
+2018-07-13 06:34
+
+    \end{Verbatim}
+
+    \subsection{\texorpdfstring{六、新闻正文内容获取}{六、新闻正文内容获取 }}\label{ux516dux65b0ux95fbux6b63ux6587ux5185ux5bb9ux83b7ux53d6}
+
+与之前同样的方法，用工发者开者检查正文所处标签： 
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}195}]:} \PY{n}{article}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+          \PY{c+c1}{\PYZsh{}soup.select(\PYZsq{}\PYZsh{}article\PYZus{}content p\PYZsq{}) \PYZsh{}正文文本内容在article\PYZus{}content指定元素的各个p标记里}
+          \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{soup}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}article\PYZus{}content p}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{:} \PY{c+c1}{\PYZsh{}这里索引结束位置为\PYZhy{}5的原因是因为后面有一些空段和责任编辑部份是不要的}
+              \PY{n}{article}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{p}\PY{o}{.}\PY{n}{text}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}将获取的各段落加入article列表，strip()方法用于去除各段文本前后的空格等特殊字符}
+          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{@}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{article}\PY{p}{)} \PY{c+c1}{\PYZsh{}把列表中各项连接为一个字符串，连接处用“@”字符分隔}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}195}]:} '原标题：北京市长陈吉宁会见美国特斯拉公司董事长马斯克@来源：北京日报@撰文| 武红利 \textbackslash{}xa0范俊生@昨天上午，市长陈吉宁会见了美国特斯拉公司董事长兼首席执行官埃隆·马斯克先生一行。@陈吉宁对客人的来访表示欢迎。@他说@北京当前正在精心组织实施新一版城市总体规划，围绕“四个中心”城市战略定位，推进减量发展、创新发展和开放发展。@在新一轮扩大开放的过程中，北京将进一步改革优化营商环境，为国际企业在京发展提供更加优质的服务。@特斯拉在京设立中国区总部和美国之外的第一个研发中心，充分体现了特斯拉对与北京合作的重视。@希望双方今后在新能源汽车科技、城市绿色发展等领域加强合作，我们将全力支持特斯拉在京发展。@马斯克高度评价北京取得的发展成就，表示将逐步扩大北京研发中心的规模，与北京进一步深化合作。@市委常委、副市长阴和俊，市政府秘书长靳伟参加会见。@原创新媒体制作人员：范俊生、武红利'
+\end{Verbatim}
+            
+    \subsubsection{还有一种方法可以用一行代替前面的for迭代，使代码更简练：}\label{ux8fd8ux6709ux4e00ux79cdux65b9ux6cd5ux53efux4ee5ux7528ux4e00ux884cux4ee3ux66ffux524dux9762ux7684forux8fedux4ee3ux4f7fux4ee3ux7801ux66f4ux7b80ux7ec3}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}202}]:} \PY{c+c1}{\PYZsh{}[p.text.strip() for p in soup.select(\PYZsq{}\PYZsh{}article\PYZus{}content p\PYZsq{})[:\PYZhy{}5]] \PYZsh{}返回为列表类型}
+          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{@}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{[}\PY{n}{p}\PY{o}{.}\PY{n}{text}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{soup}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}article\PYZus{}content p}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{}把join方法也合并上去，代码更简练了}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}202}]:} '原标题：北京市长陈吉宁会见美国特斯拉公司董事长马斯克@来源：北京日报@撰文| 武红利 \textbackslash{}xa0范俊生@昨天上午，市长陈吉宁会见了美国特斯拉公司董事长兼首席执行官埃隆·马斯克先生一行。@陈吉宁对客人的来访表示欢迎。@他说@北京当前正在精心组织实施新一版城市总体规划，围绕“四个中心”城市战略定位，推进减量发展、创新发展和开放发展。@在新一轮扩大开放的过程中，北京将进一步改革优化营商环境，为国际企业在京发展提供更加优质的服务。@特斯拉在京设立中国区总部和美国之外的第一个研发中心，充分体现了特斯拉对与北京合作的重视。@希望双方今后在新能源汽车科技、城市绿色发展等领域加强合作，我们将全力支持特斯拉在京发展。@马斯克高度评价北京取得的发展成就，表示将逐步扩大北京研发中心的规模，与北京进一步深化合作。@市委常委、副市长阴和俊，市政府秘书长靳伟参加会见。@原创新媒体制作人员：范俊生、武红利'
+\end{Verbatim}
+            
+    \subsubsection{\texorpdfstring{责任编辑的获取}{责任编辑的获取 }}\label{ux8d23ux4efbux7f16ux8f91ux7684ux83b7ux53d6}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}208}]:} \PY{n}{soup}\PY{o}{.}\PY{n}{select}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.show\PYZus{}author}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{text}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{lstrip}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{责任编辑：}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}lstrip方法，从左边去掉指定的字符，这里\PYZsq{}责任编辑：\PYZsq{}几字是不要的，只要编辑姓名即可}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}208}]:} '霍宇昂'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
